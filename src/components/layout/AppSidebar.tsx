@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LayoutDashboard, MessageSquare, Database, TrendingUp, ShoppingBag, Settings, Sparkles } from 'lucide-react';
+import { LayoutDashboard, MessageSquare, Database, TrendingUp, ShoppingBag, Settings } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import {
   Sidebar,
@@ -18,7 +18,6 @@ import {
 } from '@/components/ui/sidebar';
 
 const navItems = [
-  { name: 'Welcome', href: '/', icon: Sparkles },
   { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
   { name: 'Business Chat', href: '/chat', icon: MessageSquare },
   { name: 'Data Management', href: '/data', icon: Database },
