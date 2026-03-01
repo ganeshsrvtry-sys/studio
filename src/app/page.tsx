@@ -5,7 +5,6 @@ import Link from 'next/link';
 import { useBusinessData } from '@/context/BusinessContext';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { 
   Sparkles, 
@@ -16,12 +15,13 @@ import {
   ShieldCheck,
   Star,
   Lock,
-  ChevronRight
+  ChevronRight,
+  Zap
 } from 'lucide-react';
 import Image from 'next/image';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 
-export default function LoginPortalPage() {
+export default function WelcomePortalPage() {
   const { data, addPositiveWord, removePositiveWord } = useBusinessData();
   const [newWord, setNewWord] = useState('');
   const heroImage = PlaceHolderImages.find(img => img.id === 'invite-hero');
@@ -35,7 +35,7 @@ export default function LoginPortalPage() {
   };
 
   return (
-    <div className="min-h-screen bg-background flex items-center justify-center p-0 md:p-6 lg:p-12 overflow-hidden">
+    <div className="min-h-screen bg-background flex items-center justify-center p-0 md:p-6 lg:p-12 overflow-hidden selection:bg-primary/30">
       {/* Background Decorative Elements */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden -z-10">
         <div className="absolute -top-[10%] -left-[10%] w-[40%] h-[40%] bg-primary/10 rounded-full blur-[120px]" />
@@ -64,8 +64,8 @@ export default function LoginPortalPage() {
               <ShoppingBag className="h-7 w-7 text-white" />
             </div>
             <h1 className="font-headline text-5xl font-bold text-white leading-[1.1] tracking-tight">
-              The Future of <br />
-              <span className="text-secondary italic">Retail Intelligence</span>
+              Welcome to <br />
+              <span className="text-secondary italic">ShopSmart AI</span>
             </h1>
             <p className="mt-6 text-white/80 text-lg max-w-sm font-medium leading-relaxed">
               Unlock GenAI insights designed specifically for modern grocery store operations.
@@ -78,7 +78,7 @@ export default function LoginPortalPage() {
                 <ShieldCheck className="h-5 w-5" />
               </div>
               <div className="text-sm">
-                <p className="font-bold">Enterprise Security</p>
+                <p className="font-bold text-white">Secure Intelligence</p>
                 <p className="opacity-70 text-xs">Proprietary data protection active.</p>
               </div>
             </div>
@@ -87,26 +87,26 @@ export default function LoginPortalPage() {
                 <Star className="h-5 w-5" />
               </div>
               <div className="text-sm">
-                <p className="font-bold">Market Edge</p>
+                <p className="font-bold text-white">Session Priority</p>
                 <p className="opacity-70 text-xs">Real-time predictive store modeling.</p>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Right Side: The Login / Intention Portal */}
+        {/* Right Side: The Entry Portal */}
         <div className="p-8 md:p-16 lg:p-20 flex flex-col justify-center bg-card">
           <div className="max-w-md mx-auto w-full space-y-10">
             <header className="space-y-4 text-center lg:text-left">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-[10px] font-bold uppercase tracking-[0.2em] mb-2">
-                <Lock className="h-3 w-3" />
-                Store Manager Portal
+                <Zap className="h-3 w-3" />
+                Store Manager Session
               </div>
               <h2 className="font-headline text-4xl font-bold tracking-tight text-foreground">
-                Welcome Back
+                Set Your Intentions
               </h2>
               <p className="text-muted-foreground text-sm">
-                Define today's operational intentions to prime your AI business consultant.
+                Before accessing the main dashboard, define today's operational goals to prime your AI consultant.
               </p>
             </header>
 
@@ -114,8 +114,8 @@ export default function LoginPortalPage() {
               {/* Intentions Input */}
               <div className="space-y-4">
                 <div className="flex items-center justify-between px-1">
-                  <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Set Intentions</span>
-                  <span className="text-[10px] text-primary font-medium">Session Active</span>
+                  <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Focus Words</span>
+                  <span className="text-[10px] text-primary font-medium">Session Setup</span>
                 </div>
                 <form onSubmit={handleAddWord} className="relative group">
                   <Input 
@@ -136,7 +136,7 @@ export default function LoginPortalPage() {
               </div>
 
               {/* Tags Container */}
-              <div className="min-h-[100px] p-5 rounded-[1.5rem] bg-accent/30 border border-accent/50 flex flex-wrap gap-2 items-start content-start transition-all hover:shadow-inner">
+              <div className="min-h-[120px] p-5 rounded-[1.5rem] bg-accent/30 border border-accent/50 flex flex-wrap gap-2 items-start content-start transition-all hover:shadow-inner">
                 {data.positiveWords && data.positiveWords.length > 0 ? (
                   data.positiveWords.map((word, idx) => (
                     <Badge 
@@ -156,8 +156,9 @@ export default function LoginPortalPage() {
                     </Badge>
                   ))
                 ) : (
-                  <div className="w-full h-full flex items-center justify-center opacity-40">
-                    <p className="text-xs italic font-medium">No intentions specified for this session...</p>
+                  <div className="w-full h-full flex flex-col items-center justify-center opacity-40 text-center gap-2">
+                    <p className="text-xs italic font-medium">No intentions specified yet...</p>
+                    <p className="text-[10px]">What is your priority today?</p>
                   </div>
                 )}
               </div>
@@ -167,7 +168,7 @@ export default function LoginPortalPage() {
                 <Button asChild size="lg" className="w-full h-16 rounded-[1.25rem] text-lg font-bold shadow-2xl shadow-primary/30 hover:shadow-primary/40 hover:scale-[1.02] active:scale-[0.98] transition-all group overflow-hidden relative">
                   <Link href="/dashboard" className="flex items-center justify-center gap-3">
                     <span className="relative z-10 flex items-center gap-2">
-                      Access Store Intelligence
+                      Enter Dashboard
                       <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
                     </span>
                     <div className="absolute inset-0 bg-gradient-to-r from-primary to-secondary opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -177,10 +178,10 @@ export default function LoginPortalPage() {
                 <div className="flex items-center justify-between text-[10px] text-muted-foreground/60 font-bold uppercase tracking-widest px-1 pt-4">
                   <div className="flex items-center gap-1.5">
                     <div className="h-1 w-1 rounded-full bg-primary" />
-                    Biometric Verified
+                    Secure Access
                   </div>
                   <div className="flex items-center gap-1.5">
-                    Terminal ID: 882-X
+                    v2.1.0-AI
                     <ChevronRight className="h-3 w-3" />
                   </div>
                 </div>
