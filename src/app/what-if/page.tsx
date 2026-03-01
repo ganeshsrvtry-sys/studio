@@ -235,6 +235,6 @@ export default function WhatIfPage() {
         </div>
         <WhatIfContent />
       </SidebarInset>
-    </Sidebar>
+    </SidebarProvider>
   );
 }

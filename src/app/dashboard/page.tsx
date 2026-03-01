@@ -214,6 +214,6 @@ export default function DashboardPage() {
         </div>
         <DashboardContent />
       </SidebarInset>
-    </Sidebar>
+    </SidebarProvider>
   );
 }

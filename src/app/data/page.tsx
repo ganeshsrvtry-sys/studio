@@ -176,6 +176,6 @@ export default function DataPage() {
         </div>
         <DataInputContent />
       </SidebarInset>
-    </Sidebar>
+    </SidebarProvider>
   );
 }
