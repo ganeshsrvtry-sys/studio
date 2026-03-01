@@ -173,6 +173,6 @@ export default function ChatPage() {
         </div>
         <ChatContent />
       </SidebarInset>
-    </Sidebar>
+    </SidebarProvider>
   );
 }
