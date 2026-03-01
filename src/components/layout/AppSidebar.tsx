@@ -18,8 +18,8 @@ import {
 } from '@/components/ui/sidebar';
 
 const navItems = [
-  { name: 'Welcome', href: '/welcome', icon: Sparkles },
-  { name: 'Dashboard', href: '/', icon: LayoutDashboard },
+  { name: 'Welcome', href: '/', icon: Sparkles },
+  { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
   { name: 'Business Chat', href: '/chat', icon: MessageSquare },
   { name: 'Data Management', href: '/data', icon: Database },
   { name: 'What-If Analysis', href: '/what-if', icon: TrendingUp },
