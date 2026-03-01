@@ -9,11 +9,14 @@ export interface BusinessData {
   customerSatisfaction: string;
   inventoryTurnover: string;
   averageCustomerSpend: string;
+  positiveWords: string[];
 }
 
 interface BusinessContextType {
   data: BusinessData;
   updateData: (newData: Partial<BusinessData>) => void;
+  addPositiveWord: (word: string) => void;
+  removePositiveWord: (word: string) => void;
 }
 
 const initialData: BusinessData = {
@@ -23,6 +26,7 @@ const initialData: BusinessData = {
   customerSatisfaction: "88%",
   inventoryTurnover: "14",
   averageCustomerSpend: "38.50",
+  positiveWords: ["Growth", "Community", "Quality"],
 };
 
 const BusinessContext = createContext<BusinessContextType | undefined>(undefined);
@@ -47,8 +51,20 @@ export function BusinessProvider({ children }: { children: React.ReactNode }) {
     localStorage.setItem('shopsmart_data', JSON.stringify(updated));
   };
 
+  const addPositiveWord = (word: string) => {
+    if (!data.positiveWords.includes(word)) {
+      updateData({ positiveWords: [...data.positiveWords, word] });
+    }
+  };
+
+  const removePositiveWord = (wordToRemove: string) => {
+    updateData({ 
+      positiveWords: data.positiveWords.filter(w => w !== wordToRemove) 
+    });
+  };
+
   return (
-    <BusinessContext.Provider value={{ data, updateData }}>
+    <BusinessContext.Provider value={{ data, updateData, addPositiveWord, removePositiveWord }}>
       {children}
     </BusinessContext.Provider>
   );
