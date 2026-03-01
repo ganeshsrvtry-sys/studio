@@ -3,13 +3,13 @@
 import React, { useState } from 'react';
 import { AppSidebar } from '@/components/layout/AppSidebar';
 import { SidebarProvider, SidebarInset, SidebarTrigger } from '@/components/ui/sidebar';
-import { BusinessProvider, useBusinessData } from '@/context/BusinessContext';
+import { useBusinessData } from '@/context/BusinessContext';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
-import { Database, Save, FileText, BarChart3, Users2, ShoppingCart, CheckCircle2 } from 'lucide-react';
+import { Database, Save, FileText, BarChart3, ShoppingCart, CheckCircle2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
 function DataInputContent() {
@@ -166,18 +166,16 @@ function DataInputContent() {
 
 export default function DataPage() {
   return (
-    <BusinessProvider>
-      <SidebarProvider>
-        <AppSidebar />
-        <SidebarInset className="bg-background">
-          <div className="sticky top-0 z-10 flex h-16 items-center gap-4 border-b bg-background/80 backdrop-blur-md px-6">
-            <SidebarTrigger />
-            <div className="h-4 w-[1px] bg-border" />
-            <span className="text-sm font-medium text-muted-foreground">Data Management</span>
-          </div>
-          <DataInputContent />
-        </SidebarInset>
-      </SidebarProvider>
-    </BusinessProvider>
+    <SidebarProvider>
+      <AppSidebar />
+      <SidebarInset className="bg-background">
+        <div className="sticky top-0 z-10 flex h-16 items-center gap-4 border-b bg-background/80 backdrop-blur-md px-6">
+          <SidebarTrigger />
+          <div className="h-4 w-[1px] bg-border" />
+          <span className="text-sm font-medium text-muted-foreground">Data Management</span>
+        </div>
+        <DataInputContent />
+      </SidebarInset>
+    </Sidebar>
   );
 }

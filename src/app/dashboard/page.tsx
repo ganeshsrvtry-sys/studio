@@ -2,7 +2,7 @@
 
 import { AppSidebar } from '@/components/layout/AppSidebar';
 import { SidebarProvider, SidebarInset, SidebarTrigger } from '@/components/ui/sidebar';
-import { BusinessProvider, useBusinessData } from '@/context/BusinessContext';
+import { useBusinessData } from '@/context/BusinessContext';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { 
@@ -16,8 +16,6 @@ import {
   Sparkles
 } from 'lucide-react';
 import { 
-  BarChart, 
-  Bar, 
   XAxis, 
   YAxis, 
   CartesianGrid, 
@@ -204,20 +202,18 @@ function DashboardContent() {
   );
 }
 
-export default function Home() {
+export default function DashboardPage() {
   return (
-    <BusinessProvider>
-      <SidebarProvider>
-        <AppSidebar />
-        <SidebarInset className="bg-background">
-          <div className="sticky top-0 z-10 flex h-16 items-center gap-4 border-b bg-background/80 backdrop-blur-md px-6">
-            <SidebarTrigger />
-            <div className="h-4 w-[1px] bg-border" />
-            <span className="text-sm font-medium text-muted-foreground">Dashboard</span>
-          </div>
-          <DashboardContent />
-        </SidebarInset>
-      </SidebarProvider>
-    </BusinessProvider>
+    <SidebarProvider>
+      <AppSidebar />
+      <SidebarInset className="bg-background">
+        <div className="sticky top-0 z-10 flex h-16 items-center gap-4 border-b bg-background/80 backdrop-blur-md px-6">
+          <SidebarTrigger />
+          <div className="h-4 w-[1px] bg-border" />
+          <span className="text-sm font-medium text-muted-foreground">Dashboard Overview</span>
+        </div>
+        <DashboardContent />
+      </SidebarInset>
+    </Sidebar>
   );
 }

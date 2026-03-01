@@ -3,12 +3,11 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { AppSidebar } from '@/components/layout/AppSidebar';
 import { SidebarProvider, SidebarInset, SidebarTrigger } from '@/components/ui/sidebar';
-import { BusinessProvider } from '@/context/BusinessContext';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { MessageSquare, Send, Sparkles, User, ShoppingBag, Loader2 } from 'lucide-react';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+import { Send, Sparkles, User, ShoppingBag, Loader2 } from 'lucide-react';
 import { askBusinessQuestions } from '@/ai/flows/ask-business-questions';
 
 interface Message {
@@ -164,18 +163,16 @@ function ChatContent() {
 
 export default function ChatPage() {
   return (
-    <BusinessProvider>
-      <SidebarProvider>
-        <AppSidebar />
-        <SidebarInset className="bg-background">
-          <div className="sticky top-0 z-10 flex h-16 items-center gap-4 border-b bg-background/80 backdrop-blur-md px-6">
-            <SidebarTrigger />
-            <div className="h-4 w-[1px] bg-border" />
-            <span className="text-sm font-medium text-muted-foreground">AI Business Chat</span>
-          </div>
-          <ChatContent />
-        </SidebarInset>
-      </SidebarProvider>
-    </BusinessProvider>
+    <SidebarProvider>
+      <AppSidebar />
+      <SidebarInset className="bg-background">
+        <div className="sticky top-0 z-10 flex h-16 items-center gap-4 border-b bg-background/80 backdrop-blur-md px-6">
+          <SidebarTrigger />
+          <div className="h-4 w-[1px] bg-border" />
+          <span className="text-sm font-medium text-muted-foreground">AI Business Chat</span>
+        </div>
+        <ChatContent />
+      </SidebarInset>
+    </Sidebar>
   );
 }

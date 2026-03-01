@@ -3,16 +3,14 @@
 import React, { useState } from 'react';
 import { AppSidebar } from '@/components/layout/AppSidebar';
 import { SidebarProvider, SidebarInset, SidebarTrigger } from '@/components/ui/sidebar';
-import { BusinessProvider, useBusinessData } from '@/context/BusinessContext';
+import { useBusinessData } from '@/context/BusinessContext';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Badge } from '@/components/ui/badge';
 import { 
   TrendingUp, 
   Sparkles, 
   Play, 
-  ArrowRight, 
   Lightbulb, 
   AlertTriangle, 
   CheckCircle,
@@ -227,18 +225,16 @@ function WhatIfContent() {
 
 export default function WhatIfPage() {
   return (
-    <BusinessProvider>
-      <SidebarProvider>
-        <AppSidebar />
-        <SidebarInset className="bg-background">
-          <div className="sticky top-0 z-10 flex h-16 items-center gap-4 border-b bg-background/80 backdrop-blur-md px-6">
-            <SidebarTrigger />
-            <div className="h-4 w-[1px] bg-border" />
-            <span className="text-sm font-medium text-muted-foreground">What-If Simulator</span>
-          </div>
-          <WhatIfContent />
-        </SidebarInset>
-      </SidebarProvider>
-    </BusinessProvider>
+    <SidebarProvider>
+      <AppSidebar />
+      <SidebarInset className="bg-background">
+        <div className="sticky top-0 z-10 flex h-16 items-center gap-4 border-b bg-background/80 backdrop-blur-md px-6">
+          <SidebarTrigger />
+          <div className="h-4 w-[1px] bg-border" />
+          <span className="text-sm font-medium text-muted-foreground">What-If Simulator</span>
+        </div>
+        <WhatIfContent />
+      </SidebarInset>
+    </Sidebar>
   );
 }
