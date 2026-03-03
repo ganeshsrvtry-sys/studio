@@ -51,7 +51,7 @@ export default function WelcomePortalPage() {
         
         {/* Left Side: Aesthetic Hero & Branding */}
         <div className="hidden lg:flex flex-col justify-between p-16 relative overflow-hidden bg-primary group">
-          <div className="absolute inset-0 opacity-40 group-hover:scale-105 transition-transform [transition-duration:10000ms] ease-out">
+          <div className="absolute inset-0 opacity-40 group-hover:scale-105 transition-transform [transition-duration:10s] ease-out">
             {heroImage && (
               <Image 
                 src={heroImage.imageUrl} 

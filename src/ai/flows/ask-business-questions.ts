@@ -1,4 +1,3 @@
-
 'use server';
 /**
  * @fileOverview This file defines a Genkit flow for an AI chatbot that answers business-related questions for grocery store owners.
@@ -10,7 +9,6 @@
 
 import { ai } from '@/ai/genkit';
 import { z } from 'genkit';
-import { gemini15Flash } from '@genkit-ai/google-genai';
 
 const AskBusinessQuestionsInputSchema = z.object({
   question: z.string().describe('The business question asked by the grocery store owner.'),
@@ -28,7 +26,7 @@ export async function askBusinessQuestions(input: AskBusinessQuestionsInput): Pr
 
 const prompt = ai.definePrompt({
   name: 'askBusinessQuestionsPrompt',
-  model: gemini15Flash,
+  model: 'googleai/gemini-1.5-flash',
   input: { schema: AskBusinessQuestionsInputSchema },
   output: { schema: AskBusinessQuestionsOutputSchema },
   prompt: `You are an experienced business consultant specializing in grocery store operations.

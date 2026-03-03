@@ -1,4 +1,3 @@
-
 'use server';
 /**
  * @fileOverview This file implements a Genkit flow for analyzing hypothetical 'what-if' business scenarios for a grocery store.
@@ -10,7 +9,6 @@
 
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
-import { gemini15Flash } from '@genkit-ai/google-genai';
 
 // Input Schema
 const AnalyzeWhatIfScenarioInputSchema = z.object({
@@ -97,7 +95,7 @@ export async function analyzeWhatIfScenario(
 
 const prompt = ai.definePrompt({
   name: 'analyzeWhatIfScenarioPrompt',
-  model: gemini15Flash,
+  model: 'googleai/gemini-1.5-flash',
   input: { schema: AnalyzeWhatIfScenarioInputSchema },
   output: { schema: AnalyzeWhatIfScenarioOutputSchema },
   prompt: `You are an expert business analyst specializing in grocery store operations. Your task is to analyze a hypothetical "what-if" business scenario for a grocery store owner.
@@ -140,7 +138,6 @@ const analyzeWhatIfScenarioFlow = ai.defineFlow(
       return output;
     } catch (error: any) {
       console.error('Error in analyzeWhatIfScenarioFlow:', error);
-      // Return a structured error response that matches the schema
       return {
         scenarioAnalysis: `Analysis failed: ${error.message || 'The AI service is currently unavailable.'}. Please verify your API key and redeploy.`,
         impactSummary: {
