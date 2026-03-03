@@ -117,7 +117,7 @@ export default function WelcomePortalPage() {
             </header>
 
             <div className="space-y-8">
-              {/* Intentions Input - Deferred until mount to avoid fdprocessedid issues */}
+              {/* Intentions Input */}
               <div className="space-y-4">
                 <div className="flex items-center justify-between px-1">
                   <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Focus Words</span>
@@ -165,6 +165,7 @@ export default function WelcomePortalPage() {
                         onClick={() => removePositiveWord(word)}
                         className="hover:text-destructive transition-colors ml-1 p-0.5 rounded-full hover:bg-destructive/10"
                         aria-label={`Remove ${word}`}
+                        suppressHydrationWarning
                       >
                         <X className="h-3 w-3" />
                       </button>
