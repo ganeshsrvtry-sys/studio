@@ -1,3 +1,4 @@
+
 'use server';
 /**
  * @fileOverview This file defines a Genkit flow for an AI chatbot that answers business-related questions for grocery store owners.
@@ -9,6 +10,7 @@
 
 import { ai } from '@/ai/genkit';
 import { z } from 'genkit';
+import { gemini15Flash } from '@genkit-ai/google-genai';
 
 const AskBusinessQuestionsInputSchema = z.object({
   question: z.string().describe('The business question asked by the grocery store owner.'),
@@ -26,7 +28,7 @@ export async function askBusinessQuestions(input: AskBusinessQuestionsInput): Pr
 
 const prompt = ai.definePrompt({
   name: 'askBusinessQuestionsPrompt',
-  model: 'googleai/gemini-1.5-flash',
+  model: gemini15Flash,
   input: { schema: AskBusinessQuestionsInputSchema },
   output: { schema: AskBusinessQuestionsOutputSchema },
   prompt: `You are an experienced business consultant specializing in grocery store operations.
@@ -51,9 +53,11 @@ const askBusinessQuestionsFlow = ai.defineFlow(
         throw new Error('AI failed to generate a response.');
       }
       return output;
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error in askBusinessQuestionsFlow:', error);
-      throw new Error('The AI consultant is currently unavailable. Please check your API configuration.');
+      return {
+        answer: `I'm sorry, I'm having trouble connecting to my brain right now. Please ensure your GOOGLE_GENAI_API_KEY is correct and that you have redeployed the app after adding it. Technical detail: ${error.message || 'Unknown error'}`
+      };
     }
   }
 );
