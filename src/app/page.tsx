@@ -60,6 +60,7 @@ export default function WelcomePortalPage() {
                 className="object-cover"
                 data-ai-hint={heroImage.imageHint}
                 priority
+                suppressHydrationWarning
               />
             )}
             <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/60 to-transparent" />
