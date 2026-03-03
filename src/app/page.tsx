@@ -51,7 +51,7 @@ export default function WelcomePortalPage() {
         
         {/* Left Side: Aesthetic Hero & Branding */}
         <div className="hidden lg:flex flex-col justify-between p-16 relative overflow-hidden bg-primary group">
-          <div className="absolute inset-0 opacity-40 group-hover:scale-105 transition-transform duration-[10s] ease-out">
+          <div className="absolute inset-0 opacity-40 group-hover:scale-105 transition-transform duration-[10000ms] ease-out">
             {heroImage && (
               <Image 
                 src={heroImage.imageUrl} 
@@ -131,12 +131,14 @@ export default function WelcomePortalPage() {
                       className="bg-accent/20 border-accent/40 focus-visible:ring-primary h-14 pl-5 pr-14 rounded-2xl transition-all group-hover:border-primary/50"
                       value={newWord}
                       onChange={(e) => setNewWord(e.target.value)}
+                      suppressHydrationWarning
                     />
                     <Button 
                       type="submit" 
                       variant="ghost" 
                       size="icon"
                       className="absolute right-2 top-1/2 -translate-y-1/2 h-10 w-10 rounded-xl hover:bg-primary hover:text-white transition-all"
+                      suppressHydrationWarning
                     >
                       <Plus className="h-5 w-5" />
                     </Button>
@@ -183,7 +185,7 @@ export default function WelcomePortalPage() {
               {/* Enter Button */}
               <div className="space-y-4 pt-4">
                 {isMounted ? (
-                  <Button asChild size="lg" className="w-full h-16 rounded-[1.25rem] text-lg font-bold shadow-2xl shadow-primary/30 hover:shadow-primary/40 hover:scale-[1.02] active:scale-[0.98] transition-all group overflow-hidden relative">
+                  <Button asChild size="lg" className="w-full h-16 rounded-[1.25rem] text-lg font-bold shadow-2xl shadow-primary/30 hover:shadow-primary/40 hover:scale-[1.02] active:scale-[0.98] transition-all group overflow-hidden relative" suppressHydrationWarning>
                     <Link href="/dashboard" className="flex items-center justify-center gap-3">
                       <span className="relative z-10 flex items-center gap-2">
                         Enter Dashboard

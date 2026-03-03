@@ -141,12 +141,14 @@ function ChatContent() {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 disabled={isLoading}
+                suppressHydrationWarning
               />
               <Button 
                 type="submit" 
                 size="icon" 
                 className="absolute right-2 top-1/2 -translate-y-1/2 h-8 w-8 rounded-lg shadow-md transition-transform active:scale-90"
                 disabled={isLoading || !input.trim()}
+                suppressHydrationWarning
               >
                 <Send className="h-4 w-4" />
               </Button>

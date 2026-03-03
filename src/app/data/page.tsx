@@ -106,6 +106,7 @@ function DataInputContent() {
                 value={formData.profitMargin} 
                 onChange={(e) => setFormData({...formData, profitMargin: e.target.value})}
                 className="border-accent bg-background"
+                suppressHydrationWarning
               />
             </div>
             <div className="space-y-2">
@@ -114,6 +115,7 @@ function DataInputContent() {
                 value={formData.customerSatisfaction} 
                 onChange={(e) => setFormData({...formData, customerSatisfaction: e.target.value})}
                 className="border-accent bg-background"
+                suppressHydrationWarning
               />
             </div>
             <div className="space-y-2">
@@ -122,6 +124,7 @@ function DataInputContent() {
                 value={formData.inventoryTurnover} 
                 onChange={(e) => setFormData({...formData, inventoryTurnover: e.target.value})}
                 className="border-accent bg-background"
+                suppressHydrationWarning
               />
             </div>
             <div className="space-y-2">
@@ -130,6 +133,7 @@ function DataInputContent() {
                 value={formData.averageCustomerSpend} 
                 onChange={(e) => setFormData({...formData, averageCustomerSpend: e.target.value})}
                 className="border-accent bg-background"
+                suppressHydrationWarning
               />
             </div>
           </div>
@@ -137,10 +141,10 @@ function DataInputContent() {
       </Card>
 
       <div className="flex justify-end gap-4 mt-4">
-        <Button variant="outline" className="px-8 border-primary text-primary hover:bg-primary/5">
+        <Button variant="outline" className="px-8 border-primary text-primary hover:bg-primary/5" suppressHydrationWarning>
           Discard Changes
         </Button>
-        <Button onClick={handleSave} className="px-8 shadow-lg hover:shadow-primary/20 transition-all flex items-center gap-2">
+        <Button onClick={handleSave} className="px-8 shadow-lg hover:shadow-primary/20 transition-all flex items-center gap-2" suppressHydrationWarning>
           <Save className="h-4 w-4" />
           Save Business Profile
         </Button>

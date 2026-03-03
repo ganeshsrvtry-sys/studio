@@ -84,11 +84,13 @@ function WhatIfContent() {
                   value={scenario}
                   onChange={(e) => setScenario(e.target.value)}
                   disabled={isLoading}
+                  suppressHydrationWarning
                 />
                 <Button 
                   onClick={() => handleSimulate()} 
                   className="px-8 h-auto shadow-primary/20 shadow-lg active:scale-95 transition-all"
                   disabled={isLoading || !scenario.trim()}
+                  suppressHydrationWarning
                 >
                   {isLoading ? <Loader2 className="h-5 w-5 animate-spin" /> : <Play className="h-5 w-5 mr-2" />}
                   Simulate
@@ -105,6 +107,7 @@ function WhatIfContent() {
                     onClick={() => handleSimulate(s)}
                     disabled={isLoading}
                     className="text-xs px-3 py-2 rounded-full bg-background border border-accent hover:border-primary hover:text-primary transition-all text-left max-w-full"
+                    suppressHydrationWarning
                   >
                     {s}
                   </button>
@@ -213,7 +216,7 @@ function WhatIfContent() {
           </div>
 
           <div className="flex justify-center py-4">
-            <Button variant="ghost" className="text-primary hover:bg-primary/5" onClick={() => setResult(null)}>
+            <Button variant="ghost" className="text-primary hover:bg-primary/5" onClick={() => setResult(null)} suppressHydrationWarning>
               Reset Analysis
             </Button>
           </div>
