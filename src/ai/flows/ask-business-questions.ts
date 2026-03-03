@@ -53,7 +53,7 @@ const askBusinessQuestionsFlow = ai.defineFlow(
     } catch (error: any) {
       console.error('Error in askBusinessQuestionsFlow:', error);
       return {
-        answer: `I'm having trouble connecting to the AI service. Please ensure your GOOGLE_GENAI_API_KEY is correctly set in your environment variables and that you have redeployed the app. Technical detail: ${error.message || 'Unknown error'}`
+        answer: `I encountered an issue connecting to the AI. Please verify that your GOOGLE_GENAI_API_KEY is active and you have redeployed. Technical detail: ${error.message || 'Unknown error'}`
       };
     }
   }

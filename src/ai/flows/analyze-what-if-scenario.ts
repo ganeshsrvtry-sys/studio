@@ -101,7 +101,7 @@ const analyzeWhatIfScenarioFlow = ai.defineFlow(
     } catch (error: any) {
       console.error('Error in analyzeWhatIfScenarioFlow:', error);
       return {
-        scenarioAnalysis: `Analysis failed. Please check your GOOGLE_GENAI_API_KEY and redeploy. Error: ${error.message || 'Unknown error'}`,
+        scenarioAnalysis: `Analysis failed. Please check your API key and redeploy. Error: ${error.message || 'Unknown error'}`,
         impactSummary: {
           profitImpact: "Error",
           salesVolumeImpact: "Error",
