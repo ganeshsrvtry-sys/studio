@@ -26,6 +26,7 @@ export async function askBusinessQuestions(input: AskBusinessQuestionsInput): Pr
 
 const prompt = ai.definePrompt({
   name: 'askBusinessQuestionsPrompt',
+  model: 'googleai/gemini-1.5-flash',
   input: { schema: AskBusinessQuestionsInputSchema },
   output: { schema: AskBusinessQuestionsOutputSchema },
   prompt: `You are an experienced business consultant specializing in grocery store operations.
@@ -44,7 +45,15 @@ const askBusinessQuestionsFlow = ai.defineFlow(
     outputSchema: AskBusinessQuestionsOutputSchema,
   },
   async (input) => {
-    const { output } = await prompt(input);
-    return output!;
+    try {
+      const { output } = await prompt(input);
+      if (!output) {
+        throw new Error('AI failed to generate a response.');
+      }
+      return output;
+    } catch (error) {
+      console.error('Error in askBusinessQuestionsFlow:', error);
+      throw new Error('The AI consultant is currently unavailable. Please check your API configuration.');
+    }
   }
 );

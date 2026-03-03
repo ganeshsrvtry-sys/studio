@@ -95,6 +95,7 @@ export async function analyzeWhatIfScenario(
 
 const prompt = ai.definePrompt({
   name: 'analyzeWhatIfScenarioPrompt',
+  model: 'googleai/gemini-1.5-flash',
   input: { schema: AnalyzeWhatIfScenarioInputSchema },
   output: { schema: AnalyzeWhatIfScenarioOutputSchema },
   prompt: `You are an expert business analyst specializing in grocery store operations. Your task is to analyze a hypothetical "what-if" business scenario for a grocery store owner.
@@ -129,10 +130,15 @@ const analyzeWhatIfScenarioFlow = ai.defineFlow(
     outputSchema: AnalyzeWhatIfScenarioOutputSchema,
   },
   async (input) => {
-    const { output } = await prompt(input);
-    if (!output) {
-      throw new Error('Failed to get output from the prompt.');
+    try {
+      const { output } = await prompt(input);
+      if (!output) {
+        throw new Error('Failed to get output from the prompt.');
+      }
+      return output;
+    } catch (error) {
+      console.error('Error in analyzeWhatIfScenarioFlow:', error);
+      throw new Error('Scenario analysis failed. Please check your AI service configuration.');
     }
-    return output;
   }
 );
