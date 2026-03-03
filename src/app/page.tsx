@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { useState, useEffect } from 'react';
@@ -41,7 +42,6 @@ export default function WelcomePortalPage() {
 
   return (
     <div className="min-h-screen bg-background flex items-center justify-center p-0 md:p-6 lg:p-12 overflow-hidden selection:bg-primary/30">
-      {/* Background Decorative Elements */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden -z-10">
         <div className="absolute -top-[10%] -left-[10%] w-[40%] h-[40%] bg-primary/10 rounded-full blur-[120px]" />
         <div className="absolute -bottom-[10%] -right-[10%] w-[40%] h-[40%] bg-secondary/10 rounded-full blur-[120px]" />
@@ -49,9 +49,8 @@ export default function WelcomePortalPage() {
 
       <div className="w-full max-w-6xl h-full md:min-h-[700px] md:h-auto grid lg:grid-cols-2 gap-0 overflow-hidden rounded-none md:rounded-[2.5rem] border shadow-2xl bg-card/40 backdrop-blur-xl animate-in fade-in zoom-in-95 duration-1000">
         
-        {/* Left Side: Aesthetic Hero & Branding */}
         <div className="hidden lg:flex flex-col justify-between p-16 relative overflow-hidden bg-primary group">
-          <div className="absolute inset-0 opacity-40 group-hover:scale-105 transition-transform [transition-duration:10s] ease-out">
+          <div className="absolute inset-0 opacity-40 group-hover:scale-105 transition-transform [transition-duration:10000ms] ease-out">
             {heroImage && (
               <Image 
                 src={heroImage.imageUrl} 
@@ -101,7 +100,6 @@ export default function WelcomePortalPage() {
           </div>
         </div>
 
-        {/* Right Side: The Entry Portal */}
         <div className="p-8 md:p-16 lg:p-20 flex flex-col justify-center bg-card">
           <div className="max-w-md mx-auto w-full space-y-10">
             <header className="space-y-4 text-center lg:text-left">
@@ -118,7 +116,6 @@ export default function WelcomePortalPage() {
             </header>
 
             <div className="space-y-8">
-              {/* Intentions Input */}
               <div className="space-y-4">
                 <div className="flex items-center justify-between px-1">
                   <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Focus Words</span>
@@ -148,7 +145,6 @@ export default function WelcomePortalPage() {
                 )}
               </div>
 
-              {/* Tags Container */}
               <div className="min-h-[120px] p-5 rounded-[1.5rem] bg-accent/30 border border-accent/50 flex flex-wrap gap-2 items-start content-start transition-all hover:shadow-inner">
                 {!isMounted ? (
                   <div className="w-full h-full flex items-center justify-center gap-2 opacity-40">
@@ -182,7 +178,6 @@ export default function WelcomePortalPage() {
                 )}
               </div>
 
-              {/* Enter Button */}
               <div className="space-y-4 pt-4">
                 {isMounted ? (
                   <Button asChild size="lg" className="w-full h-16 rounded-[1.25rem] text-lg font-bold shadow-2xl shadow-primary/30 hover:shadow-primary/40 hover:scale-[1.02] active:scale-[0.98] transition-all group overflow-hidden relative" suppressHydrationWarning>
