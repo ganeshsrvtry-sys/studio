@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useBusinessData } from '@/context/BusinessContext';
 import { Button } from '@/components/ui/button';
@@ -14,9 +14,9 @@ import {
   ShoppingBag,
   ShieldCheck,
   Star,
-  Lock,
+  Zap,
   ChevronRight,
-  Zap
+  Loader2
 } from 'lucide-react';
 import Image from 'next/image';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
@@ -24,7 +24,12 @@ import { PlaceHolderImages } from '@/lib/placeholder-images';
 export default function WelcomePortalPage() {
   const { data, addPositiveWord, removePositiveWord } = useBusinessData();
   const [newWord, setNewWord] = useState('');
+  const [isMounted, setIsMounted] = useState(false);
   const heroImage = PlaceHolderImages.find(img => img.id === 'invite-hero');
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const handleAddWord = (e: React.FormEvent) => {
     e.preventDefault();
@@ -42,7 +47,7 @@ export default function WelcomePortalPage() {
         <div className="absolute -bottom-[10%] -right-[10%] w-[40%] h-[40%] bg-secondary/10 rounded-full blur-[120px]" />
       </div>
 
-      <div className="w-full max-w-6xl h-full md:h-[800px] grid lg:grid-cols-2 gap-0 overflow-hidden rounded-none md:rounded-[2.5rem] border shadow-2xl bg-card/40 backdrop-blur-xl animate-in fade-in zoom-in-95 duration-1000">
+      <div className="w-full max-w-6xl h-full md:min-h-[700px] md:h-auto grid lg:grid-cols-2 gap-0 overflow-hidden rounded-none md:rounded-[2.5rem] border shadow-2xl bg-card/40 backdrop-blur-xl animate-in fade-in zoom-in-95 duration-1000">
         
         {/* Left Side: Aesthetic Hero & Branding */}
         <div className="hidden lg:flex flex-col justify-between p-16 relative overflow-hidden bg-primary group">
@@ -54,6 +59,7 @@ export default function WelcomePortalPage() {
                 fill
                 className="object-cover"
                 data-ai-hint={heroImage.imageHint}
+                priority
               />
             )}
             <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/60 to-transparent" />
@@ -111,36 +117,45 @@ export default function WelcomePortalPage() {
             </header>
 
             <div className="space-y-8">
-              {/* Intentions Input */}
+              {/* Intentions Input - Deferred until mount to avoid fdprocessedid issues */}
               <div className="space-y-4">
                 <div className="flex items-center justify-between px-1">
                   <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground">Focus Words</span>
                   <span className="text-[10px] text-primary font-medium">Session Setup</span>
                 </div>
-                <form onSubmit={handleAddWord} className="relative group">
-                  <Input 
-                    placeholder="e.g. Efficiency, Profit, Quality..." 
-                    className="bg-accent/20 border-accent/40 focus-visible:ring-primary h-14 pl-5 pr-14 rounded-2xl transition-all group-hover:border-primary/50"
-                    value={newWord}
-                    onChange={(e) => setNewWord(e.target.value)}
-                  />
-                  <Button 
-                    type="submit" 
-                    variant="ghost" 
-                    size="icon"
-                    className="absolute right-2 top-1/2 -translate-y-1/2 h-10 w-10 rounded-xl hover:bg-primary hover:text-white transition-all"
-                  >
-                    <Plus className="h-5 w-5" />
-                  </Button>
-                </form>
+                {isMounted ? (
+                  <form onSubmit={handleAddWord} className="relative group">
+                    <Input 
+                      placeholder="e.g. Efficiency, Profit, Quality..." 
+                      className="bg-accent/20 border-accent/40 focus-visible:ring-primary h-14 pl-5 pr-14 rounded-2xl transition-all group-hover:border-primary/50"
+                      value={newWord}
+                      onChange={(e) => setNewWord(e.target.value)}
+                    />
+                    <Button 
+                      type="submit" 
+                      variant="ghost" 
+                      size="icon"
+                      className="absolute right-2 top-1/2 -translate-y-1/2 h-10 w-10 rounded-xl hover:bg-primary hover:text-white transition-all"
+                    >
+                      <Plus className="h-5 w-5" />
+                    </Button>
+                  </form>
+                ) : (
+                  <div className="h-14 w-full bg-accent/20 rounded-2xl animate-pulse" />
+                )}
               </div>
 
               {/* Tags Container */}
               <div className="min-h-[120px] p-5 rounded-[1.5rem] bg-accent/30 border border-accent/50 flex flex-wrap gap-2 items-start content-start transition-all hover:shadow-inner">
-                {data.positiveWords && data.positiveWords.length > 0 ? (
+                {!isMounted ? (
+                  <div className="w-full h-full flex items-center justify-center gap-2 opacity-40">
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                    <span className="text-[10px] font-medium uppercase tracking-widest">Initializing...</span>
+                  </div>
+                ) : data.positiveWords && data.positiveWords.length > 0 ? (
                   data.positiveWords.map((word, idx) => (
                     <Badge 
-                      key={idx} 
+                      key={`${word}-${idx}`} 
                       variant="secondary" 
                       className="px-4 py-2 text-xs bg-card text-primary border border-primary/10 flex items-center gap-2 animate-in zoom-in-50 duration-300 shadow-sm"
                     >
@@ -165,15 +180,19 @@ export default function WelcomePortalPage() {
 
               {/* Enter Button */}
               <div className="space-y-4 pt-4">
-                <Button asChild size="lg" className="w-full h-16 rounded-[1.25rem] text-lg font-bold shadow-2xl shadow-primary/30 hover:shadow-primary/40 hover:scale-[1.02] active:scale-[0.98] transition-all group overflow-hidden relative">
-                  <Link href="/dashboard" className="flex items-center justify-center gap-3">
-                    <span className="relative z-10 flex items-center gap-2">
-                      Enter Dashboard
-                      <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
-                    </span>
-                    <div className="absolute inset-0 bg-gradient-to-r from-primary to-secondary opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                  </Link>
-                </Button>
+                {isMounted ? (
+                  <Button asChild size="lg" className="w-full h-16 rounded-[1.25rem] text-lg font-bold shadow-2xl shadow-primary/30 hover:shadow-primary/40 hover:scale-[1.02] active:scale-[0.98] transition-all group overflow-hidden relative">
+                    <Link href="/dashboard" className="flex items-center justify-center gap-3">
+                      <span className="relative z-10 flex items-center gap-2">
+                        Enter Dashboard
+                        <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                      </span>
+                      <div className="absolute inset-0 bg-gradient-to-r from-primary to-secondary opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    </Link>
+                  </Button>
+                ) : (
+                  <div className="h-16 w-full bg-primary/20 rounded-[1.25rem] animate-pulse" />
+                )}
                 
                 <div className="flex items-center justify-between text-[10px] text-muted-foreground/60 font-bold uppercase tracking-widest px-1 pt-4">
                   <div className="flex items-center gap-1.5">
