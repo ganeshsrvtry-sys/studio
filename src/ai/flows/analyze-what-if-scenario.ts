@@ -20,23 +20,23 @@ const AnalyzeWhatIfScenarioInputSchema = z.object({
   currentSalesFigures: z
     .string()
     .describe(
-      'Current sales figures and trends. Example: "Monthly sales: $100,000. Top categories: Produce ($30k), Dairy ($20k). Seasonal sales peaks in summer."'
+      'Current sales figures and trends.'
     ),
   currentInventoryLevels: z
     .string()
     .describe(
-      'Current inventory levels and related data. Example: "Total inventory value: $50,000. High stock: Canned goods. Low stock: Fresh produce. Average spoilage: 5%."'
+      'Current inventory levels and related data.'
     ),
   keyMetrics: z
     .string()
     .describe(
-      'Current values of key business metrics. Example: "Profit margin: 15%. Customer satisfaction: 85% (based on survey). Inventory turnover: 12 times/year. Average customer spend: $45."'
+      'Current values of key business metrics.'
     ),
   businessContext: z
     .string()
     .optional()
     .describe(
-      'Any additional relevant business context or operational details that might influence the analysis.'
+      'Any additional relevant business context.'
     ),
 });
 export type AnalyzeWhatIfScenarioInput = z.infer<
@@ -48,39 +48,15 @@ const AnalyzeWhatIfScenarioOutputSchema = z.object({
   scenarioAnalysis: z
     .string()
     .describe(
-      'A detailed narrative analysis of the potential impact of the scenario on the grocery store business, explaining reasoning.'
+      'A detailed narrative analysis of the potential impact.'
     ),
   impactSummary: z.object({
-    profitImpact: z
-      .string()
-      .describe(
-        'Estimated change in profit (e.g., "significant increase", "slight decrease", "negligible change", "+5%", "-2%").'
-      ),
-    salesVolumeImpact: z
-      .string()
-      .describe(
-        'Estimated change in sales volume (e.g., "potential increase in unit sales", "expected drop in overall volume", "shift in category sales").'
-      ),
-    inventoryTurnoverImpact: z
-      .string()
-      .describe(
-        'Estimated change in inventory turnover (e.g., "faster turnover for new items", "slower turnover for existing stock", "no significant change").'
-      ),
-    customerSatisfactionImpact: z
-      .string()
-      .describe(
-        'Estimated change in customer satisfaction (e.g., "likely to improve due to variety", "potential for negative feedback on price changes", "minimal impact").'
-      ),
-    riskFactors: z
-      .array(z.string())
-      .describe(
-        'A list of potential risks or challenges associated with implementing this scenario.'
-      ),
-    opportunities: z
-      .array(z.string())
-      .describe(
-        'A list of potential opportunities or benefits arising from this scenario.'
-      ),
+    profitImpact: z.string(),
+    salesVolumeImpact: z.string(),
+    inventoryTurnoverImpact: z.string(),
+    customerSatisfactionImpact: z.string(),
+    riskFactors: z.array(z.string()),
+    opportunities: z.array(z.string()),
   }),
 });
 export type AnalyzeWhatIfScenarioOutput = z.infer<
@@ -95,32 +71,18 @@ export async function analyzeWhatIfScenario(
 
 const prompt = ai.definePrompt({
   name: 'analyzeWhatIfScenarioPrompt',
-  model: 'googleai/gemini-1.5-flash',
   input: { schema: AnalyzeWhatIfScenarioInputSchema },
   output: { schema: AnalyzeWhatIfScenarioOutputSchema },
-  prompt: `You are an expert business analyst specializing in grocery store operations. Your task is to analyze a hypothetical "what-if" business scenario for a grocery store owner.
+  prompt: `You are an expert business analyst specializing in grocery store operations. Your task is to analyze a hypothetical "what-if" business scenario.
 
-Here is the current business data and context:
----
-Current Sales Figures:
-{{{currentSalesFigures}}}
+Current Data:
+Sales: {{{currentSalesFigures}}}
+Inventory: {{{currentInventoryLevels}}}
+Metrics: {{{keyMetrics}}}
 
-Current Inventory Levels:
-{{{currentInventoryLevels}}}
+Analyze this scenario: {{{scenarioDescription}}}
 
-Key Business Metrics:
-{{{keyMetrics}}}
-
-Additional Business Context:
-{{{businessContext}}}
----
-
-Based on the above information, analyze the following "what-if" scenario:
-Scenario: {{{scenarioDescription}}}
-
-Provide a detailed analysis and then summarize the potential impact on key metrics, including profit, sales volume, inventory turnover, and customer satisfaction. Also, identify specific risk factors and opportunities associated with this scenario.
-
-Ensure your response is structured as a JSON object matching the provided schema, with clear and concise estimations for each impact field.`,
+Provide a detailed analysis and summary of the impact.`,
 });
 
 const analyzeWhatIfScenarioFlow = ai.defineFlow(
@@ -133,13 +95,13 @@ const analyzeWhatIfScenarioFlow = ai.defineFlow(
     try {
       const { output } = await prompt(input);
       if (!output) {
-        throw new Error('Failed to get output from the prompt.');
+        throw new Error('Failed to get output from the AI.');
       }
       return output;
     } catch (error: any) {
       console.error('Error in analyzeWhatIfScenarioFlow:', error);
       return {
-        scenarioAnalysis: `Analysis failed: ${error.message || 'The AI service is currently unavailable.'}. Please verify your API key and redeploy.`,
+        scenarioAnalysis: `Analysis failed. Please check your GOOGLE_GENAI_API_KEY and redeploy. Error: ${error.message || 'Unknown error'}`,
         impactSummary: {
           profitImpact: "Error",
           salesVolumeImpact: "Error",

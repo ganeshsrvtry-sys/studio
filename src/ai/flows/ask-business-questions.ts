@@ -26,7 +26,6 @@ export async function askBusinessQuestions(input: AskBusinessQuestionsInput): Pr
 
 const prompt = ai.definePrompt({
   name: 'askBusinessQuestionsPrompt',
-  model: 'googleai/gemini-1.5-flash',
   input: { schema: AskBusinessQuestionsInputSchema },
   output: { schema: AskBusinessQuestionsOutputSchema },
   prompt: `You are an experienced business consultant specializing in grocery store operations.
@@ -54,7 +53,7 @@ const askBusinessQuestionsFlow = ai.defineFlow(
     } catch (error: any) {
       console.error('Error in askBusinessQuestionsFlow:', error);
       return {
-        answer: `I'm sorry, I'm having trouble connecting to my brain right now. Please ensure your GOOGLE_GENAI_API_KEY is correct and that you have redeployed the app after adding it. Technical detail: ${error.message || 'Unknown error'}`
+        answer: `I'm having trouble connecting to the AI service. Please ensure your GOOGLE_GENAI_API_KEY is correctly set in your environment variables and that you have redeployed the app. Technical detail: ${error.message || 'Unknown error'}`
       };
     }
   }
