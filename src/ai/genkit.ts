@@ -3,7 +3,7 @@ import { googleAI } from '@genkit-ai/google-genai';
 
 /**
  * Genkit initialization with Gemini 1.5 Flash.
- * Hardcoded fallback for the provided API key to ensure reliability.
+ * Explicitly passing the provided API key for reliable connectivity.
  */
 const apiKey = process.env.GOOGLE_GENAI_API_KEY || 'AIzaSyDPhJ79alANLf5iNAYvceqOdPTfGOt6Iok';
 
@@ -13,5 +13,5 @@ export const ai = genkit({
       apiKey: apiKey,
     }),
   ],
-  model: 'googleai/gemini-1.5-flash',
+  model: googleAI.model('gemini-1.5-flash'),
 });
