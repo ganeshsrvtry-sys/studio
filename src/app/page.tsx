@@ -59,7 +59,6 @@ export default function WelcomePortalPage() {
                 className="object-cover"
                 data-ai-hint={heroImage.imageHint}
                 priority
-                suppressHydrationWarning
               />
             )}
             <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/60 to-transparent" />
@@ -128,14 +127,12 @@ export default function WelcomePortalPage() {
                       className="bg-accent/20 border-accent/40 focus-visible:ring-primary h-14 pl-5 pr-14 rounded-2xl transition-all group-hover:border-primary/50"
                       value={newWord}
                       onChange={(e) => setNewWord(e.target.value)}
-                      suppressHydrationWarning
                     />
                     <Button 
                       type="submit" 
                       variant="ghost" 
                       size="icon"
                       className="absolute right-2 top-1/2 -translate-y-1/2 h-10 w-10 rounded-xl hover:bg-primary hover:text-white transition-all"
-                      suppressHydrationWarning
                     >
                       <Plus className="h-5 w-5" />
                     </Button>
@@ -164,7 +161,6 @@ export default function WelcomePortalPage() {
                         onClick={() => removePositiveWord(word)}
                         className="hover:text-destructive transition-colors ml-1 p-0.5 rounded-full hover:bg-destructive/10"
                         aria-label={`Remove ${word}`}
-                        suppressHydrationWarning
                       >
                         <X className="h-3 w-3" />
                       </button>
@@ -180,7 +176,7 @@ export default function WelcomePortalPage() {
 
               <div className="space-y-4 pt-4">
                 {isMounted ? (
-                  <Button asChild size="lg" className="w-full h-16 rounded-[1.25rem] text-lg font-bold shadow-2xl shadow-primary/30 hover:shadow-primary/40 hover:scale-[1.02] active:scale-[0.98] transition-all group overflow-hidden relative" suppressHydrationWarning>
+                  <Button asChild size="lg" className="w-full h-16 rounded-[1.25rem] text-lg font-bold shadow-2xl shadow-primary/30 hover:shadow-primary/40 hover:scale-[1.02] active:scale-[0.98] transition-all group overflow-hidden relative">
                     <Link href="/dashboard" className="flex items-center justify-center gap-3">
                       <span className="relative z-10 flex items-center gap-2">
                         Enter Dashboard
